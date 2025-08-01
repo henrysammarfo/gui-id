@@ -15,7 +15,6 @@ import {
   Loader2, 
   CheckCircle, 
   XCircle,
-  User,
   LogOut,
   Copy,
   Wallet,
@@ -39,7 +38,7 @@ export function Dashboard() {
   const [isVisible, setIsVisible] = useState(false);
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   
-  // Mock user data - replace with actual on-chain data later
+  // Mock user data
   const userData = {
     xp: 1250,
     reputation: 850,
@@ -131,10 +130,9 @@ export function Dashboard() {
     return null;
   };
 
-  // Placeholder functions - replace with actual contract calls later
+  // Mock transaction handlers
   const handleStakeGui = async () => {
     setStakeState({ loading: true, success: false, error: null, hash: null });
-    // Simulate transaction
     setTimeout(() => {
       setStakeState({ loading: false, success: true, error: null, hash: "0x123..." });
       setStakeAmount("");
@@ -173,18 +171,18 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900/10 to-slate-900">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-6 py-8">
         {/* Header */}
         <div className={`flex items-center justify-between mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-blue-500/25">
+            <div className="p-3 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
               <Shield className="h-8 w-8 text-white" />
             </div>
             <div>
@@ -207,7 +205,7 @@ export function Dashboard() {
         </div>
 
         {/* User Info Card */}
-        <Card className={`mb-8 border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl hover:shadow-blue-500/10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <Card className={`mb-8 border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <div>
@@ -235,28 +233,28 @@ export function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="group text-center p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-2xl border border-blue-500/20 hover:border-blue-400/40 hover:scale-105 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-blue-500/20">
+              <div className="group text-center p-6 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-2xl border border-blue-500/20 hover:border-blue-400/40 hover:scale-105 transition-all duration-300 cursor-pointer">
                 <div className="flex items-center justify-center mb-3">
                   <Zap className="h-6 w-6 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div className="text-3xl font-black text-blue-400 group-hover:text-blue-300 transition-colors duration-300">{userData.xp}</div>
                 <div className="text-sm text-slate-400 font-medium mt-1">Experience Points</div>
               </div>
-              <div className="group text-center p-6 bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 hover:scale-105 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="group text-center p-6 bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 hover:scale-105 transition-all duration-300 cursor-pointer">
                 <div className="flex items-center justify-center mb-3">
                   <Star className="h-6 w-6 text-purple-400 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div className="text-3xl font-black text-purple-400 group-hover:text-purple-300 transition-colors duration-300">{userData.reputation}</div>
                 <div className="text-sm text-slate-400 font-medium mt-1">Reputation</div>
               </div>
-              <div className="group text-center p-6 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-2xl border border-green-500/20 hover:border-green-400/40 hover:scale-105 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-green-500/20">
+              <div className="group text-center p-6 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-2xl border border-green-500/20 hover:border-green-400/40 hover:scale-105 transition-all duration-300 cursor-pointer">
                 <div className="flex items-center justify-center mb-3">
                   <Award className="h-6 w-6 text-green-400 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div className="text-3xl font-black text-green-400 group-hover:text-green-300 transition-colors duration-300">{userData.badges}</div>
                 <div className="text-sm text-slate-400 font-medium mt-1">Badges Earned</div>
               </div>
-              <div className="group text-center p-6 bg-gradient-to-br from-orange-500/10 to-orange-600/10 rounded-2xl border border-orange-500/20 hover:border-orange-400/40 hover:scale-105 transition-all duration-300 cursor-pointer hover:shadow-lg hover:shadow-orange-500/20">
+              <div className="group text-center p-6 bg-gradient-to-br from-orange-500/10 to-orange-600/10 rounded-2xl border border-orange-500/20 hover:border-orange-400/40 hover:scale-105 transition-all duration-300 cursor-pointer">
                 <div className="flex items-center justify-center mb-3">
                   <Target className="h-6 w-6 text-orange-400 group-hover:scale-110 transition-transform duration-300" />
                 </div>
@@ -270,7 +268,7 @@ export function Dashboard() {
         {/* Action Cards Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {/* Stake GUI */}
-          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl hover:shadow-blue-500/10 group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '200ms' }}>
+          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '200ms' }}>
             <CardHeader className="cursor-pointer" onClick={() => toggleCard('stake')}>
               <CardTitle className="flex items-center justify-between text-white text-xl font-bold">
                 <div className="flex items-center gap-3">
@@ -314,7 +312,7 @@ export function Dashboard() {
           </Card>
 
           {/* Tip User */}
-          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl hover:shadow-green-500/10 group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '400ms' }}>
+          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '400ms' }}>
             <CardHeader className="cursor-pointer" onClick={() => toggleCard('tip')}>
               <CardTitle className="flex items-center justify-between text-white text-xl font-bold">
                 <div className="flex items-center gap-3">
@@ -365,7 +363,7 @@ export function Dashboard() {
           </Card>
 
           {/* Mint Badge */}
-          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl hover:shadow-purple-500/10 group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '600ms' }}>
+          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '600ms' }}>
             <CardHeader className="cursor-pointer" onClick={() => toggleCard('badge')}>
               <CardTitle className="flex items-center justify-between text-white text-xl font-bold">
                 <div className="flex items-center gap-3">
@@ -418,8 +416,8 @@ export function Dashboard() {
             </div>
           </Card>
 
-          {/* Earn XP */}
-          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl hover:shadow-orange-500/10 group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '800ms' }}>
+          {/* Award XP */}
+          <Card className={`border-slate-700/50 bg-slate-800/50 backdrop-blur-xl hover:bg-slate-800/70 transition-all duration-500 shadow-2xl group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ animationDelay: '800ms' }}>
             <CardHeader className="cursor-pointer" onClick={() => toggleCard('xp')}>
               <CardTitle className="flex items-center justify-between text-white text-xl font-bold">
                 <div className="flex items-center gap-3">
