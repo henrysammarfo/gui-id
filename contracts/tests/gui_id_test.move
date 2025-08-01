@@ -9,6 +9,6 @@ script {
     GUI_ID::tip_user(&account, addr, 50);
     GUI_ID::mint_badge(&account, addr, 10);
     GUI_ID::earn_xp(addr, 25);
-    // If execution completes without abort, test is successful
+    // Test passes if no aborts
   }
 }
