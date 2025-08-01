@@ -5,6 +5,8 @@ authors = []
 
 [addresses]
 gui_id_contract = "_"
+std = "0x1"
+aptos_std = "0x1"
 
 [dev-addresses]
 
