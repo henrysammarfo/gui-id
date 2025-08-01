@@ -3,7 +3,7 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Wallet, Sparkles, Users, Award, TrendingUp, Zap, ArrowRight } from "lucide-react";
+import { Shield, Wallet, Sparkles, Users, Award, TrendingUp, Zap, ArrowRight, Star, Target } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function LandingPage() {
@@ -103,17 +103,17 @@ export function LandingPage() {
             {/* Connect Wallet Button */}
             <div className="mb-16">
               <div className="flex flex-wrap justify-center gap-4">
-                {wallets?.map((wallet) => (
+                {wallets?.filter(wallet => !wallet.name.toLowerCase().includes('google') && !wallet.name.toLowerCase().includes('apple')).map((wallet) => (
                   <Button
                     key={wallet.name}
                     onClick={() => connect(wallet.name)}
                     size="lg"
-                    className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 transform hover:scale-105 rounded-2xl border-0 overflow-hidden btn-hover"
+                    className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 transform hover:scale-105 rounded-2xl border-0 overflow-hidden btn-hover animate-glow"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div className="relative flex items-center gap-3">
                       <Wallet className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                      Connect {wallet.name}
+                      Connect Wallet
                       <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </Button>
@@ -130,7 +130,7 @@ export function LandingPage() {
             {features.map((feature, index) => (
               <Card 
                 key={index}
-                className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 cursor-pointer card-hover"
+                className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 cursor-pointer card-hover glow-border"
                 onMouseEnter={() => setHoveredFeature(index)}
                 onMouseLeave={() => setHoveredFeature(null)}
               >
@@ -190,17 +190,66 @@ export function LandingPage() {
 
       {/* Footer */}
       <footer className="relative z-10 mt-20 border-t border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg">
-                <Shield className="h-5 w-5 text-white" />
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 mb-8">
+              {/* Brand Section */}
+              <div className="md:col-span-2">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg">
+                    <Shield className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="text-2xl font-bold text-white">GUI_ID</span>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed max-w-md">
+                  The future of decentralized reputation systems. Build your on-chain identity 
+                  and participate in the Web3 ecosystem with confidence.
+                </p>
               </div>
-              <span className="text-white font-semibold">GUI_ID</span>
+
+              {/* Quick Links */}
+              <div>
+                <h4 className="text-white font-semibold mb-4">Platform</h4>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li><a href="#" className="hover:text-white transition-colors">Dashboard</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Staking</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Badges</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Leaderboard</a></li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h4 className="text-white font-semibold mb-4">Resources</h4>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
+                </ul>
+              </div>
             </div>
-            <p className="text-gray-400 text-sm font-medium">
-              Built with <span className="text-purple-400 font-bold">GUI_INU</span> ⚡
-            </p>
+
+            {/* Bottom Section */}
+            <div className="border-t border-white/10 pt-8">
+              <div className="flex flex-col md:flex-row items-center justify-between">
+                <div className="flex items-center gap-4 mb-4 md:mb-0">
+                  <p className="text-gray-400 text-sm font-medium">
+                    Built with <span className="text-purple-400 font-bold">GUI_INU</span> ⚡
+                  </p>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 text-yellow-400" />
+                    <span className="text-sm text-gray-400">Powered by Aptos</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Target className="h-4 w-4 text-green-400" />
+                    <span className="text-sm text-gray-400">Decentralized</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
