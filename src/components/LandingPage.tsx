@@ -3,19 +3,59 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Wallet, Sparkles, Users, Award, TrendingUp, Zap } from "lucide-react";
+import { Shield, Wallet, Sparkles, Users, Award, TrendingUp, Zap, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function LandingPage() {
   const { connect, wallets } = useWallet();
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
+  const features = [
+    {
+      icon: Sparkles,
+      title: "Earn XP",
+      description: "Build reputation through ecosystem participation and achievements",
+      color: "from-emerald-400 to-teal-600",
+      hoverColor: "group-hover:text-emerald-400"
+    },
+    {
+      icon: Award,
+      title: "Collect Badges",
+      description: "Unlock unique achievements and showcase your credentials",
+      color: "from-purple-400 to-pink-600",
+      hoverColor: "group-hover:text-purple-400"
+    },
+    {
+      icon: Users,
+      title: "Community",
+      description: "Tip users and build meaningful connections in Web3",
+      color: "from-blue-400 to-cyan-600",
+      hoverColor: "group-hover:text-blue-400"
+    },
+    {
+      icon: TrendingUp,
+      title: "Stake & Grow",
+      description: "Stake tokens to increase your influence and earn rewards",
+      color: "from-orange-400 to-red-600",
+      hoverColor: "group-hover:text-orange-400"
+    }
+  ];
+
+  const stats = [
+    { value: "1,234", label: "Active Users", color: "text-blue-400" },
+    { value: "5,678", label: "Badges Minted", color: "text-purple-400" },
+    { value: "12.5K", label: "GUI Staked", color: "text-emerald-400" },
+    { value: "890", label: "Tips Sent", color: "text-orange-400" }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -23,29 +63,31 @@ export function LandingPage() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl animate-pulse delay-500"></div>
         
         {/* Floating particles */}
-        <div className="absolute top-20 left-20 w-2 h-2 bg-blue-400/30 rounded-full animate-bounce delay-300"></div>
-        <div className="absolute top-40 right-32 w-1 h-1 bg-purple-400/40 rounded-full animate-bounce delay-700"></div>
-        <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-indigo-400/35 rounded-full animate-bounce delay-1000"></div>
+        <div className="absolute top-20 left-20 w-2 h-2 bg-blue-400/30 rounded-full animate-float delay-300"></div>
+        <div className="absolute top-40 right-32 w-1 h-1 bg-purple-400/40 rounded-full animate-float delay-700"></div>
+        <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-indigo-400/35 rounded-full animate-float delay-1000"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Logo */}
-          <div className={`mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="p-4 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-blue-500/25">
-                <Shield className="h-12 w-12 text-white" />
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Header with Logo */}
+          <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-lg opacity-75 animate-pulse"></div>
+                <div className="relative p-6 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-300">
+                  <Shield className="h-16 w-16 text-white" />
+                </div>
               </div>
             </div>
-            <h1 className="text-8xl font-black bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-2 tracking-tight">
+            
+            <h1 className="text-8xl md:text-9xl font-black bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent mb-4 tracking-tight">
               GUI_ID
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
-          </div>
-
-          {/* Hero Section */}
-          <div className={`mb-16 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-5xl font-bold text-white mb-6 leading-tight">
+            
+            <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-8"></div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight text-balance">
               Your Tokenized Reputation
               <br />
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -53,7 +95,7 @@ export function LandingPage() {
               </span>
             </h2>
             
-            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed text-balance">
               Build, stake, and grow your decentralized reputation. Earn XP, collect badges, 
               and participate in the future of Web3 identity powered by Aptos blockchain.
             </p>
@@ -66,13 +108,14 @@ export function LandingPage() {
                     key={wallet.name}
                     onClick={() => connect(wallet.name)}
                     size="lg"
-                    className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white px-16 py-6 text-xl font-bold shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 transform hover:scale-105 rounded-2xl border-0 overflow-hidden"
+                    className="group relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white px-12 py-6 text-xl font-bold shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 transform hover:scale-105 rounded-2xl border-0 overflow-hidden btn-hover"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <Wallet className="h-6 w-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                    Connect {wallet.name}
-                    <Zap className="h-5 w-5 ml-3 group-hover:scale-125 transition-transform duration-300" />
+                    <div className="relative flex items-center gap-3">
+                      <Wallet className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
+                      Connect {wallet.name}
+                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    </div>
                   </Button>
                 ))}
               </div>
@@ -83,95 +126,84 @@ export function LandingPage() {
           </div>
 
           {/* Features Grid */}
-          <div className={`grid md:grid-cols-4 gap-6 mb-16 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <Card className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-green-500/20 cursor-pointer">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                  <Sparkles className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors duration-300">
-                  Earn XP
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Build reputation through ecosystem participation and achievements
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-purple-500/20 cursor-pointer">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                  <Award className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors duration-300">
-                  Collect Badges
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Unlock unique achievements and showcase your credentials
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-blue-500/20 cursor-pointer">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
-                  Community
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Tip users and build meaningful connections in Web3
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-orange-500/20 cursor-pointer">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors duration-300">
-                  Stake & Grow
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Stake tokens to increase your influence and earn rewards
-                </p>
-              </CardContent>
-            </Card>
+          <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {features.map((feature, index) => (
+              <Card 
+                key={index}
+                className="group border-0 shadow-2xl bg-white/5 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 transform hover:scale-105 cursor-pointer card-hover"
+                onMouseEnter={() => setHoveredFeature(index)}
+                onMouseLeave={() => setHoveredFeature(null)}
+              >
+                <CardContent className="p-8 text-center">
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg relative`}>
+                    {hoveredFeature === index && (
+                      <div className="absolute inset-0 bg-white/20 rounded-2xl animate-pulse"></div>
+                    )}
+                    <feature.icon className="h-8 w-8 text-white relative z-10" />
+                  </div>
+                  <h3 className={`text-xl font-bold text-white mb-3 ${feature.hoverColor} transition-colors duration-300`}>
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           {/* Stats Section */}
-          <div className={`bg-white/5 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/10 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h3 className="text-2xl font-bold text-white mb-8">Platform Statistics</h3>
+          <div className={`glass rounded-3xl p-8 shadow-2xl border border-white/10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h3 className="text-3xl font-bold text-white mb-8 text-center">Platform Statistics</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center group cursor-pointer">
-                <div className="text-4xl font-black text-white group-hover:text-blue-400 transition-all duration-300 group-hover:scale-110">1,234</div>
-                <div className="text-sm text-gray-400 font-medium mt-2">Active Users</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-4xl font-black text-white group-hover:text-purple-400 transition-all duration-300 group-hover:scale-110">5,678</div>
-                <div className="text-sm text-gray-400 font-medium mt-2">Badges Minted</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-4xl font-black text-white group-hover:text-green-400 transition-all duration-300 group-hover:scale-110">12.5K</div>
-                <div className="text-sm text-gray-400 font-medium mt-2">GUI Staked</div>
-              </div>
-              <div className="text-center group cursor-pointer">
-                <div className="text-4xl font-black text-white group-hover:text-orange-400 transition-all duration-300 group-hover:scale-110">890</div>
-                <div className="text-sm text-gray-400 font-medium mt-2">Tips Sent</div>
-              </div>
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center group cursor-pointer">
+                  <div className={`text-4xl font-black text-white ${stat.color} transition-all duration-300 group-hover:scale-110 mb-2`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-400 font-medium">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className={`text-center mt-16 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="glass rounded-2xl p-8 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Build Your Reputation?</h3>
+              <p className="text-gray-300 mb-6">
+                Join thousands of users already building their on-chain identity
+              </p>
+              <Button 
+                onClick={() => wallets?.[0] && connect(wallets[0].name)}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-8 py-3 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 btn-hover"
+              >
+                Get Started
+                <Zap className="h-4 w-4 ml-2" />
+              </Button>
             </div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <p className="text-gray-400 text-sm font-medium">
-          Built with <span className="text-purple-400 font-bold">GUI_INU</span> ⚡
-        </p>
-      </div>
+      <footer className="relative z-10 mt-20 border-t border-white/10 bg-black/20 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center gap-3 mb-4 md:mb-0">
+              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg">
+                <Shield className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-white font-semibold">GUI_ID</span>
+            </div>
+            <p className="text-gray-400 text-sm font-medium">
+              Built with <span className="text-purple-400 font-bold">GUI_INU</span> ⚡
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
